@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="caixa">
+        <div class="row titulo">
+            <div class="nome">
+                Gestor
+            </div>
+            <div class="versao">
+                1.0
+            </div>
+        </div>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Usuário</mat-label>
+                <input matInput [(ngModel)]="usuario">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Senha</mat-label>
+                <input matInput type="password" [(ngModel)]="senha">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <button mat-flat-button color="primary" (click)="send()">Enviar</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="dados">
+    <div><strong>Login:</strong> <span th:text="${usuario.nome}"></span></div>
+    <div><strong>Nome:</strong> <span th:text="${usuario.nome}"></span></div>
+    <div><strong>Setor:</strong> <span th:text="${usuario.setor}"></span></div>
+    <div><strong>Email:</strong> <span th:text="${usuario.email}"></span></div>
+    <div>
+      <strong>Cadastro:</strong> <span th:text="${usuario.cadastro}"></span>
+    </div>
+  </div>
+  <div class="pure-grid">
+    <div class="pure-u-1">
+      <label for="senhaAtual">Senha atual</label>
+      <input
+        type="password"
+        id="senhaAtual"
+        formControlName="senhaAtual"
+        class="pure-u-23-24"
+      />
+    </div>
+    <div class="pure-u-1">
+      <label for="novaSenha">Nova senha</label>
+      <input
+        type="text"
+        id="novaSenha"
+        formControlName="novaSenha"
+        class="pure-u-23-24"
+      />
+    </div>
+    <div class="pure-u-1">
+      <label for="repetirNovaSenha">Repetir nova senha</label>
+      <input
+        type="text"
+        repetirNovaSenha="repetirNovaSenha"
+        formControlName="repetirNovaSenha"
+        class="pure-u-23-24"
+      />
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        class="pure-u-1"
+        (click)="alterar()"
+      >
+        Alterar
+      </button>
+    </div>
+  </div>
+</div>

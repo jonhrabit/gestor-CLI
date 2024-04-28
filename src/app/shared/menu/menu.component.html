@@ -1,0 +1,17 @@
+<mat-toolbar color="primary" *ngIf="isAutenticado()">
+    <span>Gestor</span>
+    <button mat-button [matMenuTriggerFor]="vigilancia">Vigilancia</button>
+    <mat-menu #vigilancia="matMenu">
+        <a mat-menu-item routerLink="vigilantes">Vigilantes</a>
+        <a mat-menu-item routerLink="postos">Postos</a>
+    </mat-menu>
+    <span class="spacer"></span>
+    <button mat-button [matMenuTriggerFor]="usuario">{{usuarioNome}}</button>
+    <mat-menu #usuario="matMenu">
+        <a mat-menu-item (click)="openDialog()">Alterar senha</a>
+        <a mat-menu-item routerLink="usuarios">Usuários...</a>
+        <a mat-menu-item routerLink="adm">Usuários Adm</a>
+        <a mat-menu-item (click)="doLogout()">Sair</a>
+    </mat-menu>
+</mat-toolbar>
+

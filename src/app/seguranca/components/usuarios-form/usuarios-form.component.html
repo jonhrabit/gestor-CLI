@@ -1,0 +1,105 @@
+<div class="container">
+  <form
+    [formGroup]="usuarioForm"
+    (ngSubmit)="onSubmit()"
+    class="pure-form pure-form-stacked"
+  >
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-sm-1-2">
+        <div class="pure-u-1-2"><h2>Usuário</h2></div>
+        <div class="pure-u-1-2">
+          <button [hidden]="!usuarioForm.dirty"
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="pure-u-1-3"
+          >
+            Salvar
+          </button>
+        </div>
+
+        <div class="pure-g">
+          <div class="pure-u-1 pure-u-sm-1-3">
+            <label for="id">ID</label>
+            <input
+              type="text"
+              id="id"
+              formControlName="id"
+              class="pure-u-23-24"
+              readonly
+            />
+          </div>
+          <div class="pure-u-1 pure-u-sm-2-3">
+            <label for="username">Login</label>
+            <input
+              type="text"
+              id="username"
+              formControlName="username"
+              class="pure-u-23-24"
+            />
+          </div>
+          <div class="pure-u-23-24">
+            <label for="nome">Nome</label>
+            <input
+              class="pure-u-1"
+              type="text"
+              id="nome"
+              formControlName="nome"
+            />
+          </div>
+          <div class="pure-u-1 pure-u-sm-1-2">
+            <label for="cpf">CPF</label>
+            <input
+              class="pure-u-23-24"
+              type="text"
+              id="cpf"
+              formControlName="cpf"
+            />
+          </div>
+          <div class="pure-u-1 pure-u-sm-1-2">
+            <label for="email">Email</label>
+            <input
+              class="pure-u-23-24"
+              type="email"
+              id="email"
+              formControlName="email"
+            />
+          </div>
+          <div class="pure-u-1 pure-u-sm-1-2">
+            <label for="setor">Setor</label>
+            <input
+              class="pure-u-23-24"
+              type="text"
+              id="setor"
+              formControlName="setor"
+            />
+          </div>
+          <div class="pure-u-1 pure-u-sm-1-2">
+            <label for="cadastro">Cadastro:</label>
+            <input
+              class="pure-u-23-24"
+              type="text"
+              id="cadastro"
+              formControlName="cadastro"
+              readonly
+            />
+          </div>
+        </div>
+      </div>
+      <div class="pure-u-1 pure-u-sm-1-2">
+        <div>
+          <h1>Permissões</h1>
+          <mat-list>
+            <mat-list-item
+              formArrayName="permissoes"
+              *ngFor="let permissao of getPermissoesList(); let i = index"
+            >
+              <input type="checkbox" formControlName="{{ i }}" />
+              {{ getPermissoesList()[i].texto }}
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
