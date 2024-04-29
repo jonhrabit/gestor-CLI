@@ -5,16 +5,18 @@ import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { VigilanteService } from '../services/vigilante.service';
 import moment from 'moment';
+import { PostosComponent } from './postos/postos.component';
 
 @Component({
   selector: 'app-vigilante-detalhe',
   standalone: true,
-  imports: [MaterialModule],
   templateUrl: './vigilante-detalhe.component.html',
   styleUrl: './vigilante-detalhe.component.css',
+  imports: [MaterialModule, PostosComponent],
 })
 export class VigilanteDetalheComponent implements OnInit {
   vigilanteForm!: FormGroup;
+  id!: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,15 +39,19 @@ export class VigilanteDetalheComponent implements OnInit {
       foto: [''],
       ativo: false,
     });
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
-    if (id != null) {
-      if (+id != 0) {
-        this.vigilanteService.get(+id).subscribe({
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (this.id != null) {
+      if (+this.id != 0) {
+        this.vigilanteService.get(+this.id).subscribe({
           next: (data) => {
             this.vigilanteForm.setValue(data);
             this.vigilanteForm
               .get('cadastro')
-              ?.setValue(moment(this.vigilanteForm.get('cadastro')?.value).format("DD/MM/YYYY"));
+              ?.setValue(
+                moment(this.vigilanteForm.get('cadastro')?.value).format(
+                  'DD/MM/YYYY'
+                )
+              );
             this.vigilanteForm
               .get('admissao')
               ?.setValue(moment(this.vigilanteForm.get('admissao')?.value));

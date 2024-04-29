@@ -5,7 +5,7 @@
         <div class="pure-u-1 pure-u-sm-1-4">
           <mat-form-field class="full-width">
             <mat-label>Id</mat-label>
-            <input matInput placeholder="Id" formControlName="id" readonly/>
+            <input matInput placeholder="Id" formControlName="id" readonly />
           </mat-form-field>
         </div>
         <div class="pure-u-1 pure-u-sm-1-4">
@@ -91,10 +91,12 @@
         </div>
       </div>
       <div class="pure-u-1 pure-u-md-1-2">
-        <ul>
-          <li>Relação de Postos</li>
-          <li>Registros</li>
-        </ul>
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+          <mat-tab label="Postos">
+            <app-postos [idVigilante]=id></app-postos>
+          </mat-tab>
+          <mat-tab label="Registros">Content 2</mat-tab>
+        </mat-tab-group>
       </div>
     </form>
   </div>
