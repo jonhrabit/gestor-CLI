@@ -1,12 +1,10 @@
 <div class="container">
   <div class="dados">
-    <div><strong>Login:</strong> <span th:text="${usuario.nome}"></span></div>
-    <div><strong>Nome:</strong> <span th:text="${usuario.nome}"></span></div>
-    <div><strong>Setor:</strong> <span th:text="${usuario.setor}"></span></div>
-    <div><strong>Email:</strong> <span th:text="${usuario.email}"></span></div>
-    <div>
-      <strong>Cadastro:</strong> <span th:text="${usuario.cadastro}"></span>
-    </div>
+    <div><strong>Login:</strong> {{ usuario.username }}</div>
+    <div><strong>Nome:</strong> {{ usuario.nome }}</div>
+    <div><strong>Setor:</strong> {{ usuario.setor }}</div>
+    <div><strong>Email:</strong> {{ usuario.email }}</div>
+    <div><strong>Cadastro:</strong> {{ usuario.cadastro }}</div>
   </div>
   <div class="pure-grid">
     <div class="pure-u-1">
@@ -21,7 +19,7 @@
     <div class="pure-u-1">
       <label for="novaSenha">Nova senha</label>
       <input
-        type="text"
+        type="password"
         id="novaSenha"
         formControlName="novaSenha"
         class="pure-u-23-24"
@@ -30,7 +28,7 @@
     <div class="pure-u-1">
       <label for="repetirNovaSenha">Repetir nova senha</label>
       <input
-        type="text"
+        type="password"
         repetirNovaSenha="repetirNovaSenha"
         formControlName="repetirNovaSenha"
         class="pure-u-23-24"
@@ -40,7 +38,7 @@
         color="primary"
         type="button"
         class="pure-u-1"
-        (click)="alterar()"
+        (click)="alterarSenha()"
       >
         Alterar
       </button>

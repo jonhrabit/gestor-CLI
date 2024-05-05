@@ -20,6 +20,7 @@ export class AuthService {
       let payload: any = JSON.parse(atob(token.split('.')[1]));
       this.setUsuarioNome(payload.sub);
       sessionStorage.setItem("JSESSIONID", payload.sub);
+      sessionStorage.setItem("usrd", payload.usrd);
       sessionStorage.setItem("acessToken", token);
     }
   }

@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="mat-elevation-z8" id="main">
+    <div class="pure-g">
+      <div class="pure-u-1-3">
+        <h1>{{ titulo }}</h1>
+      </div>
+      <div class="pure-u-1-3">
+        <div>
+          <input
+            type="text"
+            [formControl]="filtro"
+            placeholder="filtro"
+            (keyup)="doFilterchange()"
+          />
+        </div>
+      </div>
+    </div>
+
+    <table mat-table matSort [dataSource]="dataSource">
+      <ng-container
+        [matColumnDef]="column"
+        *ngFor="let column of displayedColumns"
+      >
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>
+          {{ column }}
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Ação</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-fab
+            type="button"
+            color="primary"
+            aria-label="editar"
+            (click)="get(element.id)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-fab
+            type="button"
+            class="red"
+            aria-label="delete"
+            (click)="del(element.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsFinal"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsFinal"></tr>
+    </table>
+    <mat-paginator [pageSize]="10" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

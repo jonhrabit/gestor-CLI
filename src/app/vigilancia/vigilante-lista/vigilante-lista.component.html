@@ -22,18 +22,11 @@
         </form>
       </div>
     </div>
-
     <table mat-table matSort [dataSource]="dataSource">
-      <!--- Note that these columns can be defined in any order.
-                The actual rendered columns are set as a property on the row definition" -->
-
-      <!-- Position Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>ID</th>
         <td mat-cell *matCellDef="let element">{{ element.id }}</td>
       </ng-container>
-
-      <!-- Name Column -->
       <ng-container matColumnDef="nome">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Nome</th>
         <td mat-cell *matCellDef="let element">{{ element.nome }}</td>
@@ -42,7 +35,6 @@
         <th mat-header-cell *matHeaderCellDef>CPF</th>
         <td mat-cell *matCellDef="let element">{{ element.cpf }}</td>
       </ng-container>
-
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">

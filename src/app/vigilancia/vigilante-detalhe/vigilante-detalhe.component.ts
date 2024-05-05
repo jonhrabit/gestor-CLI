@@ -1,22 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MaterialModule } from '../../material.module';
-import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
+import { MaterialModule } from '../../material.module';
+import { TabelaComponent } from '../../shared/tabela/tabela.component';
+import { Posto } from '../models/posto';
+import { Registro } from '../models/registro';
+import { VigilanteDetalhes } from '../models/vigilantedetalhes';
 import { VigilanteService } from '../services/vigilante.service';
-import moment from 'moment';
-import { PostosComponent } from './postos/postos.component';
 
 @Component({
   selector: 'app-vigilante-detalhe',
   standalone: true,
   templateUrl: './vigilante-detalhe.component.html',
-  styleUrl: './vigilante-detalhe.component.css',
-  imports: [MaterialModule, PostosComponent],
+  styleUrl: './vigilante-detalhe.component.scss',
+  imports: [MaterialModule, TabelaComponent],
 })
 export class VigilanteDetalheComponent implements OnInit {
   vigilanteForm!: FormGroup;
   id!: any;
+  nome!: any;
+  public registros!: any;
+  public postos!: any;
+  public substituicoes!: any;
+  vigilanteDetalhes!: VigilanteDetalhes;
+  new: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,36 +47,41 @@ export class VigilanteDetalheComponent implements OnInit {
       observacao: [''],
       foto: [''],
       ativo: false,
+      postos: [''],
+      substituicoes: [''],
+      registros: [''],
     });
+
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
+
     if (this.id != null) {
       if (+this.id != 0) {
-        this.vigilanteService.get(+this.id).subscribe({
+        this.vigilanteService.getDetalhes(+this.id).subscribe({
           next: (data) => {
-            this.vigilanteForm.setValue(data);
-            this.vigilanteForm
-              .get('cadastro')
-              ?.setValue(
-                moment(this.vigilanteForm.get('cadastro')?.value).format(
-                  'DD/MM/YYYY'
-                )
-              );
-            this.vigilanteForm
-              .get('admissao')
-              ?.setValue(moment(this.vigilanteForm.get('admissao')?.value));
-            this.vigilanteForm
-              .get('desligamento')
-              ?.setValue(moment(this.vigilanteForm.get('desligamento')?.value));
+            this.vigilanteDetalhes = data;
           },
           error: (error) => {
             console.error(error);
             this.snackBar.open('Vigilante não localizado.', 'Fechar');
           },
+          complete: () => {
+            this.vigilanteForm.setValue(this.vigilanteDetalhes);
+            this.registros = new MatTableDataSource<Registro>(
+              this.vigilanteDetalhes.registros
+            );
+            this.postos = new MatTableDataSource<Posto>(
+              this.vigilanteDetalhes.postos
+            );
+            this.substituicoes = new MatTableDataSource<Posto>(
+              this.vigilanteDetalhes.substituicoes
+            );
+          },
         });
       }
     }
   }
-  onSubmit(): void {
+
+  send(): void {
     let vigilante = this.vigilanteForm.value;
     if (vigilante.id == null) {
       this.vigilanteService.criar(vigilante).subscribe({
@@ -94,5 +108,13 @@ export class VigilanteDetalheComponent implements OnInit {
         },
       });
     }
+  }
+
+  getPosto(id: number) {
+    console.log('getPosto(' + id + ')');
+  }
+
+  deletePosto(id: number) {
+    console.log('deletePosto(' + id + ')');
   }
 }

@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { VigilanteListaComponent } from './vigilancia/vigilante-lista/vigilante-lista.component';
-import { PostoComponent } from './vigilancia/posto/posto.component';
 import { authGuard } from './seguranca/auth.guard';
 import { AltararsenhaComponent } from './seguranca/components/altararsenha/altararsenha.component';
 import { UsuariosComponent } from './seguranca/components/usuarios/usuarios.component';
@@ -24,7 +23,7 @@ export const routes: Routes = [
     component: VigilanteDetalheComponent,
     canActivate: [authGuard],
   },
-  { path: 'postos', component: PostoComponent, canActivate: [authGuard] },
+  { path: 'postos', component: VigilanteListaComponent, canActivate: [authGuard] },
   {
     path: 'alterarsenha',
     component: AltararsenhaComponent,

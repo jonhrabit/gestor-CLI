@@ -1,6 +1,6 @@
 <div class="container">
   <div class="pure-g">
-    <form [formGroup]="vigilanteForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="vigilanteForm" (ngSubmit)="send()">
       <div class="pure-u-1 pure-u-md-1-2">
         <div class="pure-u-1 pure-u-sm-1-4">
           <mat-form-field class="full-width">
@@ -47,7 +47,6 @@
             />
           </mat-form-field>
         </div>
-
         <div class="pure-u-1 pure-u-md-1-2">
           <mat-form-field class="full-width">
             <mat-label>Cadastro</mat-label>
@@ -56,6 +55,18 @@
               readonly
               placeholder="Cadastro"
               formControlName="cadastro"
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-2">
+          <mat-form-field class="full-width">
+            <mat-label>admissao</mat-label>
+            <input
+              matInput
+              readonly
+              placeholder="admissao"
+              formControlName="admissao"
             />
           </mat-form-field>
         </div>
@@ -93,9 +104,30 @@
       <div class="pure-u-1 pure-u-md-1-2">
         <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
           <mat-tab label="Postos">
-            <app-postos [idVigilante]=id></app-postos>
+            <app-tabela
+              [displayedColumns]="['escala', 'titularidade', 'grupo']"
+              [dataSource]="postos"
+              [action]="true"
+              (getItem)="getPosto($event)"
+            ></app-tabela>
           </mat-tab>
-          <mat-tab label="Registros">Content 2</mat-tab>
+          <mat-tab label="Registros">
+            <app-tabela
+              [displayedColumns]="[
+                'data',
+                'escala',
+                'status',
+                'nomeSubstituto'
+              ]"
+              [dataSource]="registros"
+            ></app-tabela>
+          </mat-tab>
+          <mat-tab label="Substituições">
+            <app-tabela
+              [displayedColumns]="['data', 'escala', 'status', 'vigilante']"
+              [dataSource]="substituicoes"
+            ></app-tabela>
+          </mat-tab>
         </mat-tab-group>
       </div>
     </form>

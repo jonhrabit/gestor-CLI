@@ -3,6 +3,7 @@ import { Vigilante } from '../models/vigilante';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../seguranca/auth.service';
 import { apiURL } from '../../app.config';
+import { VigilanteDetalhes } from '../models/vigilantedetalhes';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,15 @@ export class VigilanteService {
   get(id: number) {
     return this.httpClient.get<Vigilante>(
       apiURL + '/vigilancia/vigilante/' + id,
+      {
+        headers: this.authService.getHeaders(),
+      }
+    );
+  }
+
+  getDetalhes(id: number) {
+    return this.httpClient.get<VigilanteDetalhes>(
+      apiURL + '/vigilancia/vigilante/detalhes/' + id,
       {
         headers: this.authService.getHeaders(),
       }

@@ -3,7 +3,8 @@ import { AuthService } from '../../auth.service';
 import { Component } from '@angular/core';
 import { MaterialModule } from '../../../material.module';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
+import { Usuario } from '../../models/usuario';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-altararsenha',
@@ -13,9 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './altararsenha.component.scss',
 })
 export class AltararsenhaComponent {
-  alterar() {
-    console.log('ola');
-  }
+  usuario!: Usuario;
   senhaAntiga!: String;
   senhaNova!: String;
   senhaNovaRepetida!: String;
@@ -23,8 +22,16 @@ export class AltararsenhaComponent {
   constructor(
     private authService: AuthService,
     private http: HttpClient,
-    private _snackBar: MatSnackBar
-  ) {}
+    private _snackBar: MatSnackBar,
+    private usuarioService: UsuarioService
+  ) {
+    let usuarioId = sessionStorage.getItem('usrd');
+    if (usuarioId != null) {
+      usuarioService.get(+usuarioId).subscribe((resp) => {
+        this.usuario = resp;
+      });
+    }
+  }
 
   alterarSenha() {
     if (this.senhaNova == this.senhaNovaRepetida) {
@@ -32,15 +39,18 @@ export class AltararsenhaComponent {
         .post(
           'http://localhost:8080/alterarsenha',
           {
-            id: sessionStorage.getItem('JSESSIONID'),
+            id: sessionStorage.getItem('usrd'),
             senhaAtual: this.senhaAntiga,
             novaSenha: this.senhaNova,
           },
           { headers: this.authService.getHeaders(), responseType: 'text' }
         )
-        .subscribe((resposta) => {
-          console.log(resposta);
-          this.openSnackBar('Senha alterada com sucesso', 'x');
+        .subscribe({
+          next: (resp) => {
+            console.log(resp);
+            this.openSnackBar('Senha alterada com sucesso', 'x');
+          },
+          error: (e) => this.openSnackBar("Senha antiga não confere.", 'x'),
         });
     } else {
       this.openSnackBar('Senhas novas não conferem.', 'x');
