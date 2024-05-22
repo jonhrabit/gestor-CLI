@@ -1,0 +1,15 @@
+.corpo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  width: 100vw;
+  height: 100vh;
+}
+.caixa {
+  width: 250px;
+  height: 270px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: white;
+}

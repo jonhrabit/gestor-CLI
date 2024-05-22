@@ -1,0 +1,38 @@
+<div class="corpo">
+  <div class="caixa">
+    <div class="row">
+      <div class="col"><h1>Gestor</h1></div>
+      <div class="col">1.0</div>
+    </div>
+    <div class="row">
+      <div class="row">
+        <div class="form-floating mb-2">
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            placeholder="Usuário"
+            [formControl]="usuario"
+          />
+          <label for="username">Usuário</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-floating mb-2">
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Senha"
+            [formControl]="senha"
+          />
+          <label for="password">Senha</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <button class="btn btn-primary" (click)="send()">Entrar</button>
+      </div>
+    </div>
+  </div>
+</div>

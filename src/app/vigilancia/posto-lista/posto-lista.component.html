@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row mt-3">
+    <h1>Postos</h1>
+  </div>
+  <div class="row">
+    <app-table
+      [columns]="[
+        { name: 'Id', key: 'id', type: 'number', pipe: '' },
+        { name: 'Nome', key: 'vigilante.nome', type: 'string', pipe: '' },
+        { name: 'Escala', key: 'escala', type: 'string', pipe: '' },
+        { name: 'Titularidade', key: 'titularidade', type: 'string', pipe: '' },
+        { name: 'Grupo', key: 'grupo', type: 'string', pipe: '' },
+        { name: 'Ação', key: '', type: 'action', pipe: '' },
+      ]"
+      [data]="lista"
+      (onEdit)="editPosto($event)"
+    ></app-table>
+  </div>
+</div>

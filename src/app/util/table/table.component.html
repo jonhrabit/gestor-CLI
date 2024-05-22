@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-4">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Pesquisar..."
+      [(ngModel)]="searchBox"
+      (ngModelChange)="onSearchChange($event)"
+    />
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th *ngFor="let column of columns">{{ column.name }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="
+        let item of filteredData
+          | slice : (currentPage - 1) * pageSize : currentPage * pageSize
+      "
+    >
+      <td *ngFor="let column of columns">
+        <div *ngIf="column.type == 'action'">
+          <button class="btn btn-success" (click)="editRecord(item)">
+            <i class="bi bi-pen"></i>
+          </button>
+          <button class="btn btn-danger" (click)="deleteRecord(item)">
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </div>
+        <div *ngIf="column.type != 'action'">
+          <div *ngIf="column.key.split('.').length > 1; else simples">
+            {{ item[column.key.split(".")[0]][column.key.split(".")[1]] }}
+          </div>
+          <ng-template #simples>
+            {{ item[column.key] }}
+          </ng-template>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ngb-pagination
+  [collectionSize]="tamanho()"
+  [(page)]="currentPage"
+  [pageSize]="pageSize"
+>
+</ngb-pagination>
