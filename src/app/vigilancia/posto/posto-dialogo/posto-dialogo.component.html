@@ -1,0 +1,147 @@
+<div class="modal-header">
+  <h4 class="modal-title">Posto</h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="postoActiveModal.dismiss()"
+  ></button>
+</div>
+<div class="container">
+  <form [formGroup]="postoForm" (ngSubmit)="onSubmit()">
+    <ng-template #rt let-r="result" let-t="term">
+      <ngb-highlight [result]="r.nome" [term]="t"></ngb-highlight>
+      <p class="fw-lighter" style="font-size: 12px">
+        {{ r.cpf }}
+      </p>
+    </ng-template>
+    <div class="form-group form-floating mt-3">
+      <input
+        type="text"
+        class="form-control"
+        id="vigilante"
+        placeholder="Vigilante"
+        [ngbTypeahead]="search"
+        [resultTemplate]="rt"
+        [inputFormatter]="vigilanteNome"
+        formControlName="vigilante"
+        [editable]="false"
+      />
+      <label for="vigilanteNome">Vigilante</label>
+
+      <div
+        class="alert alert-warning"
+        style="font-size: 14px; padding: 0"
+        *ngIf="
+          postoForm.get('vigilante')?.invalid &&
+          (postoForm.get('vigilante')?.dirty ||
+            postoForm.get('vigilante')?.touched)
+        "
+      >
+        Não é possível o cadastro do vigilante por este formulário.<br />Escolha
+        um vigilante da lista.
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mt-3">
+          <app-select-escala
+            titulo="Escala"
+            formControlName="escala"
+          ></app-select-escala>
+        </div>
+        <div
+          class="alert alert-warning"
+          style="font-size: 14px; padding: 0"
+          *ngIf="
+            postoForm.get('escala')?.invalid &&
+            (postoForm.get('escala')?.dirty || postoForm.get('escala')?.touched)
+          "
+        >
+          Informe a escala.
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mt-3">
+          <app-select-titularidade
+            titulo="Titularidade"
+            formControlName="titularidade"
+          ></app-select-titularidade>
+        </div>
+        <div
+          class="alert alert-warning"
+          style="font-size: 14px; padding: 0"
+          *ngIf="
+            postoForm.get('titularidade')?.invalid &&
+            (postoForm.get('titularidade')?.dirty || postoForm.get('titularidade')?.touched)
+          "
+        >
+          Informe a titularidade.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group form-floating mt-3">
+          <input
+            id="grupo"
+            type="text"
+            class="form-control"
+            formControlName="grupo"
+            placeholder="Grupo"
+          />
+          <label for="grupo">Grupo</label>
+        </div>
+      </div>
+      <div class="col-md-6 mt-4">
+        <div class="form-group form-check">
+          <input
+            id="ativo"
+            type="checkbox"
+            class="form-check-input"
+            formControlName="ativo"
+            readonly
+          />
+          <label for="ativo" class="form-check-label">Ativo</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group form-floating mt-3">
+          <input
+            id="inicio"
+            type="text"
+            class="form-control"
+            formControlName="inicio"
+            placeholder="Início"
+          />
+          <label for="inicio">Início</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group form-floating mt-3">
+          <input
+            id="local"
+            type="text"
+            class="form-control"
+            formControlName="local"
+            placeholder="Local"
+          />
+          <label for="local">Local</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group form-floating mt-3">
+      <textarea
+        id="observacao"
+        class="form-control"
+        formControlName="observacao"
+        placeholder="Observação"
+      ></textarea>
+      <label for="observacao">Observação</label>
+    </div>
+    <button type="submit" class="btn btn-primary m-3">Salvar</button>
+  </form>
+</div>

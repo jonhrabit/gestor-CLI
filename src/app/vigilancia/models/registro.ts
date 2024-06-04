@@ -1,14 +1,14 @@
 export interface Registro {
-  id: number;
-  data: Date;
-  registro: Date;
+  id?: number;
+  data: string;
   posto: number;
-  vigilante: string;
-  escala: string;
-  titularidade: string;
-  substituto: number;
-  nomeSubstituto: string;
   status: string;
-  horario: Date;
-  observacoes: string;
+  vigilante?: string;
+  escala?: string;
+  titularidade?: string;
+  substituto?: number;
+  nomeSubstituto?: string;
+  horario?: string;
+  observacoes?: string;
+  registro?: string;
 }

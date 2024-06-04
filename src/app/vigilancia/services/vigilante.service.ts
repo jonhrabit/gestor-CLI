@@ -41,6 +41,9 @@ export class VigilanteService {
     );
   }
   salvar(vigilante: Vigilante, id: number) {
+    console.log('Vigilante:');
+    console.log(vigilante);
+
     return this.httpClient.put<Vigilante>(
       apiURL + '/vigilancia/vigilante/' + id,
       vigilante,
@@ -66,14 +69,5 @@ export class VigilanteService {
         headers: this.authService.getHeaders(),
       }
     );
-  }
-
-  cpf(valor: string) {
-    //https://gist.github.com/fernandovaller/b10a3be0e7b3b46e5895b0f0e75aada5
-    valor = valor.replace(/\D/g, ''); //Remove tudo o que não é dígito
-    valor = valor.replace(/(\d{3})(\d)/, '$1.$2'); //Coloca um ponto entre o terceiro e o quarto dígitos
-    valor = valor.replace(/(\d{3})(\d)/, '$1.$2'); //Coloca um ponto entre o terceiro e o quarto dígitos
-    valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2'); //Coloca um hífen entre o terceiro e o quarto dígitos
-    return valor;
   }
 }

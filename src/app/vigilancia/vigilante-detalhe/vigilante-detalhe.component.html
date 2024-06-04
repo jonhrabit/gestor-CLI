@@ -1,0 +1,230 @@
+<div class="m-2">
+  <div class="row">
+    <h3>Vigilante</h3>
+    <div class="col-md-6">
+      <div class="collapse hide" id="salvar">
+        <a class="btn btn-primary" onclick="salvar()">Salvar</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <form [formGroup]="vigilanteForm" (ngSubmit)="send()">
+        <div class="row">
+          <div class="col-md-4">
+            <img id="fotoVigilante" src="" alt="" class="img-thumbnail" />
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="id"
+                    placeholder="Id"
+                    readonly
+                    formControlName="id"
+                  />
+                  <label for="id">Id</label>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="cpf"
+                    placeholder="cpf"
+                    formControlName="cpf"
+                  />
+                  <label for="cpf">CPF</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nome"
+                    placeholder="Nome"
+                    formControlName="nome"
+                  />
+                  <label for="nome">Nome</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="matricula"
+                placeholder="matricula"
+                formControlName="matricula"
+              />
+              <label for="matricula">Matrícula</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="celular"
+                placeholder="celular"
+                formControlName="celular"
+              />
+              <label for="celular">Celular</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <input
+                type="date"
+                class="form-control"
+                id="admissao"
+                placeholder="admissao"
+                formControlName="admissao"
+              />
+              <label for="admissao">Admissão</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <input
+                type="date"
+                class="form-control"
+                id="desligamento"
+                placeholder="desligamento"
+                formControlName="desligamento"
+              />
+              <label for="desligamento">Desligamento</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="cadastro"
+                placeholder="cadastro"
+                formControlName="cadastro"
+                readonly
+              />
+              <label for="cadastro">Cadastro</label>
+            </div>
+          </div>
+          <div class="col-md-6"></div>
+        </div>
+        <div class="form-floating mb-3">
+          <textarea
+            class="form-control"
+            id="observacao"
+            placeholder="observacao"
+            formControlName="observacao"
+            rows="5"
+          >
+          </textarea>
+          <label for="observacao">Observações</label>
+        </div>
+        <div>
+          <button class="btn btn-primary" type="submit">Salvar</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <ul ngbNav #nav="ngbNav" class="nav-tabs">
+        <li [ngbNavItem]="1">
+          <button ngbNavLink>Postos</button>
+          <ng-template ngbNavContent>
+            <div>
+              <button class="btn btn-primary" (click)="gerarPosto()">
+                <i class="bi bi-plus"></i>Novo
+              </button>
+            </div>
+            <div class="mt-3">
+              @for (item of vigilante.postos; track $index) {
+              <div class="row">
+                <div class="col-md-2">{{ $index + 1 }}</div>
+                <div class="col-md-4">{{ item.escala }}</div>
+                <div class="col-md-4">{{ item.titularidade }}</div>
+                <div class="col-md-2">
+                  <button class="btn btn-success" (click)="editarPosto(item)">
+                    <i class="bi bi-pen"></i>
+                  </button>
+                </div>
+              </div>
+              }
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+          <button ngbNavLink>
+            Registros({{ vigilante.registros.length }})
+          </button>
+          <ng-template ngbNavContent>
+            <table class="table table-sm">
+              <tbody>
+                @for (item of vigilante.registros| slice: (page-1) * 10 : page *
+                10; track item) {
+                <tr>
+                  <td>{{ item.data }}</td>
+                  <td>
+                    <app-status status="{{ item.status }}"></app-status>
+                  </td>
+                  <td>{{ item.escala }}</td>
+                  <td>{{ item.nomeSubstituto }}</td>
+                  <td>{{ item.horario }}</td>
+                </tr>
+                }
+              </tbody>
+            </table>
+            <ngb-pagination
+              [(page)]="page"
+              [pageSize]="10"
+              [collectionSize]="vigilante.registros.length"
+            />
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="3">
+          <button ngbNavLink>
+            Substituições({{ vigilante.substituicoes.length }})
+          </button>
+          <ng-template ngbNavContent>
+            <table class="table table-sm">
+              <tbody>
+                @for (item of vigilante.substituicoes| slice: (page2-1) * 10 :
+                page2 * 10; track item) {
+                <tr>
+                  <td>{{ item.data }}</td>
+                  <td><app-status status="{{ item.status }}"></app-status></td>
+                  <td>{{ item.escala }}</td>
+                  <td>{{ item.vigilante }}</td>
+                </tr>
+                }
+              </tbody>
+            </table>
+            <ngb-pagination
+              [(page)]="page2"
+              [pageSize]="10"
+              [collectionSize]="vigilante.substituicoes.length"
+            />
+          </ng-template>
+        </li>
+      </ul>
+
+      <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    </div>
+  </div>
+</div>

@@ -6,7 +6,9 @@ import { UsuarioAlterarSenhaComponent } from './auth/usuario-alterar-senha/usuar
 import { UsuarioListaComponent } from './auth/usuario-lista/usuario-lista.component';
 import { UsuarioDetalheComponent } from './auth/usuario-detalhe/usuario-detalhe.component';
 import { VigilanteListaComponent } from './vigilancia/vigilante-lista/vigilante-lista.component';
-import { PostoListaComponent } from './vigilancia/posto-lista/posto-lista.component';
+import { PostoListaComponent } from './vigilancia/posto/posto-lista/posto-lista.component';
+import { VigilanteDetalheComponent } from './vigilancia/vigilante-detalhe/vigilante-detalhe.component';
+import { EfetividadeGeralComponent } from './vigilancia/efetividade-geral/efetividade-geral.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -34,8 +36,23 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'vigilante',
+    component: VigilanteDetalheComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'vigilante/:id',
+    component: VigilanteDetalheComponent,
+    canActivate: [authGuard],
+  },
+  {
     path: 'postos',
     component: PostoListaComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'efetividade',
+    component: EfetividadeGeralComponent,
     canActivate: [authGuard],
   },
 ];

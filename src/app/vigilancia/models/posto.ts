@@ -2,7 +2,8 @@ import { Vigilante } from './vigilante';
 
 export interface Posto {
   id: number;
-  vigilante: Vigilante;
+  vigilanteId: number;
+  vigilanteNome: string;
   escala: string;
   titularidade: string;
   local: string;

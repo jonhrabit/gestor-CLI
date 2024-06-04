@@ -14,6 +14,6 @@ export interface VigilanteDetalhes {
   foto: string;
   ativo: boolean;
   postos:Posto[],
-  substituicoes: Posto[],
+  substituicoes: Registro[],
   registros: Registro[]
 }

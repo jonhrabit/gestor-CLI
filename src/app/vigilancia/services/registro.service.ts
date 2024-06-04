@@ -19,6 +19,14 @@ export class RegistroService {
       headers: this.authService.getHeaders(),
     });
   }
+  getByDia(dia: number, mes: number, ano: number) {
+    return this.httpClient.get<Registro[]>(
+      apiURL + this.url + '/' + ano + '/' + mes + '/' + dia,
+      {
+        headers: this.authService.getHeaders(),
+      }
+    );
+  }
   get(id: number) {
     return this.httpClient.get<Registro>(apiURL + this.url + '/' + id, {
       headers: this.authService.getHeaders(),
@@ -31,8 +39,8 @@ export class RegistroService {
       { headers: this.authService.getHeaders() }
     );
   }
-  criar(registro: Registro) {
-    return this.httpClient.post<Registro>(apiURL + this.url + '/', registro, {
+  criar(registros: Registro[]) {
+    return this.httpClient.post<Registro>(apiURL + this.url, registros, {
       headers: this.authService.getHeaders(),
     });
   }

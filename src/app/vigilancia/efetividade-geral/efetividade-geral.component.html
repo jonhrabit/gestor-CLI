@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-floating mb-3">
+        <input
+          type="date"
+          class="form-control"
+          id="dia"
+          placeholder="dia"
+          [(ngModel)]="valueDia"
+        />
+        <label for="dia">Dia</label>
+      </div>
+    </div>
+    <div class="col-md-4 mt-3">
+      <button class="btn btn-primary" (click)="buscar()">Buscar</button>
+      <button class="btn btn-primary" (click)="open()">Dialogo</button>
+      <button class="btn btn-primary" (click)="registro()">Registro</button>
+    </div>
+  </div>
+  <div class="row">
+    <app-table
+      [data]="lista"
+      [columns]="[
+        { name: 'Vigilante', key: 'vigilante', type: 'string', pipe: '' },
+        { name: 'Escala', key: 'escala', type: 'string', pipe: '' },
+        {
+          name: 'Titularidade',
+          key: 'titularidade',
+          type: 'string',
+          pipe: ''
+        },
+        { name: 'Status', key: 'status', type: 'string', pipe: '' },
+        {
+          name: 'Substituto',
+          key: 'nomeSubstituto',
+          type: 'string',
+          pipe: ''
+        },
+        { name: '', key: '', type: 'action', pipe: '' }
+      ]"
+      (onEdit)="openModal($event)"
+    ></app-table>
+  </div>
+</div>

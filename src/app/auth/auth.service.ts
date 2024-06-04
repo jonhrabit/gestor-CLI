@@ -60,8 +60,8 @@ export class AuthService {
   getHeaders() {
     return {
       authorization: 'Bearer ' + this.getToken(),
-      //accept: "text/html,application/xhtml+xml,application",
-      //content: "application/json"
+/*       accept: "text/html,application/xhtml+xml,application",
+      content: "application/json" */
     };
   }
 }

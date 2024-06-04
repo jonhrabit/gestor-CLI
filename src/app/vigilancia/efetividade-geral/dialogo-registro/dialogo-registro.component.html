@@ -1,0 +1,115 @@
+<div class="modal-header">
+  <h4 class="modal-title">Criar Registro</h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModaRegistro.dismiss()"
+  ></button>
+</div>
+<form [formGroup]="formPosto" (submit)="salvar()">
+  <div class="modal-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-floating mb-3">
+            <input
+              type="date"
+              class="form-control"
+              id="data"
+              placeholder="data"
+              formControlName="data"
+            />
+            <label for="data">Data</label>
+          </div>
+        </div>
+        <div class="col-md-6"></div>
+      </div>
+      <div class="row">
+        <ng-template #rt let-r="result" let-t="term">
+          <ngb-highlight [result]="r.vigilanteNome" [term]="t"></ngb-highlight>
+          <p class="fw-lighter" style="font-size: 12px">
+            {{ r.escala }} - {{ r.grupo }}
+          </p>
+        </ng-template>
+
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="posto"
+            placeholder="Vigilante"
+            [ngbTypeahead]="search"
+            [resultTemplate]="rt"
+            formControlName="posto"
+            [inputFormatter]="vigilanteNome"
+          />
+          <label for="vigilante">Vigilante</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="status"
+              placeholder="status"
+              formControlName="status"
+            />
+            <label for="status">Status</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="horario"
+              placeholder="horario"
+              formControlName="horario"
+            />
+            <label for="horario">Horário</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="substituto"
+            placeholder="substituto"
+            [ngbTypeahead]="substituto"
+            [resultTemplate]="rt"
+            [editable]="false"
+            [inputFormatter]="vigilanteNome"
+          />
+          <label for="substituto">Substituto</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-floating">
+          <textarea
+            class="form-control"
+            placeholder="Leave a comment here"
+            id="observacoes"
+            formControlName="observacoes"
+          ></textarea>
+          <label for="observacao">Observações</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-primary">Salvar</button>
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="activeModaRegistro.close()"
+      >
+        Cancelar
+      </button>
+    </div>
+  </div>
+</form>

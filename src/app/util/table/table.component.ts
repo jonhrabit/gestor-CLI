@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -30,6 +29,7 @@ export class TableComponent implements OnChanges {
   @Input() data: any[] = [];
   pageSize = 10;
   currentPage = 1;
+  loading=false;
 
   sortColumn: string | null = null;
   sortDirection: 'asc' | 'desc' | '' = '';
@@ -47,6 +47,7 @@ export class TableComponent implements OnChanges {
   }
 
   onSearchChange(searchVal: string) {
+    this.loading=true;
     this.filteredData = this.data.filter((searchData: any) => {
       let flag = false;
       this.columns.forEach((coluna) => {
@@ -65,19 +66,8 @@ export class TableComponent implements OnChanges {
       if (flag) {
         return searchData;
       }
-
-      /* const values = Object.values(searchData);
-      let flag = false;
-      values.forEach((val: any) => {
-        if (values.toString().toLowerCase().indexOf(searchVal) > -1) {
-          flag = true;
-          return;
-        }
-      });
-      if (flag) {
-        return searchData;
-      }*/
     });
+    this.loading = false;
   }
 
   tamanho(): number {

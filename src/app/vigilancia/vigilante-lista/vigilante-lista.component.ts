@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TableComponent } from '../../util/table/table.component';
 import { VigilanteService } from '../services/vigilante.service';
 import { Vigilante } from '../models/vigilante';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vigilante-lista',
@@ -11,13 +12,13 @@ import { Vigilante } from '../models/vigilante';
   imports: [TableComponent],
 })
 export class VigilanteListaComponent {
-  editVigilante($event: Vigilante) {
-    alert($event.nome);
-  }
-  lista: any;
-  constructor(private vigilanteService: VigilanteService) {
+  constructor(private vigilanteService: VigilanteService, private router:Router) {
     vigilanteService.getAll().subscribe((data) => {
       this.lista = data;
     });
   }
+  editVigilante($event: Vigilante) {
+    this.router.navigate(['vigilante/'+$event.id]);
+  }
+  lista: any;
 }
