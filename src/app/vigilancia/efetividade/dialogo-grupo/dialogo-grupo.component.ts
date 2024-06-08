@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PostoService } from '../../services/posto.service';
 import { ToastService } from '../../../util/toast/toast.service';
-import { map } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Posto } from '../../models/posto';
 
@@ -44,6 +44,7 @@ export class DialogoGrupoComponent implements OnInit {
   private criarGruposObjeto() {
     let texto = '';
     this.grupos.forEach((g, i) => {
+
       let controle = '"' + g + '":false';
       if (i == 0) {
         texto = controle;
@@ -60,6 +61,14 @@ export class DialogoGrupoComponent implements OnInit {
     if (grupo != '') {
       this.postoService
         .getByGrupo(grupo)
+        .pipe(
+          map((postos) =>
+            postos.filter(
+              (p) =>
+                p.titularidade == 'TITULAR' && p.grupo != '' && p.grupo != null
+            )
+          )
+        )
         .pipe(map((postos) => postos.map((p) => p.vigilanteNome)))
         .subscribe({
           next: (data) => {
@@ -108,5 +117,8 @@ export class DialogoGrupoComponent implements OnInit {
         this.activeModal.dismiss();
       },
     });
+  }
+  metadeGrupos():number{
+    return this.grupos.length/2
   }
 }

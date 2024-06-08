@@ -40,6 +40,7 @@ export class PostoDialogoComponent implements OnInit {
   @Input() postoId?: number;
   @Input() vigilanteId?: number;
   listaVigilantes!: Vigilante[];
+
   vigilanteNome(v: Vigilante) {
     return v.nome;
   }

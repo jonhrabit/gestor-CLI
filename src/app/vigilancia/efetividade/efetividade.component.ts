@@ -1,17 +1,16 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RegistroService } from '../services/registro.service';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableComponent } from '../../util/table/table.component';
 import { StatusComponent } from '../../util/status/status.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-import { PostoService } from '../services/posto.service';
 import { ToastService } from '../../util/toast/toast.service';
 import { DialogoGrupoComponent } from './dialogo-grupo/dialogo-grupo.component';
 import { Registro } from '../models/registro';
 import { Posto } from '../models/posto';
 import { DatasService } from '../../util/datas.service';
-import { DialogoRegistroComponent } from './dialogo-registro/dialogo-registro.component';
+import { RegistroDialogoComponent } from './registro-dialogo/registro-dialogo.component';
 
 @Component({
   selector: 'app-efetividade-geral',
@@ -23,18 +22,11 @@ import { DialogoRegistroComponent } from './dialogo-registro/dialogo-registro.co
     CommonModule,
     ReactiveFormsModule,
   ],
-  templateUrl: './efetividade-geral.component.html',
-  styleUrl: './efetividade-geral.component.scss',
+  templateUrl: './efetividade.component.html',
+  styleUrl: './efetividade.component.scss',
 })
-export class EfetividadeGeralComponent implements OnInit {
-  openModal(reg: Registro) {
-    const modal = this.modalService.open(DialogoRegistroComponent);
-    modal.componentInstance.idRegistro = reg.id;
-  }
-  registro() {
-    const modal = this.modalService.open(DialogoRegistroComponent);
-    modal.componentInstance.valueDia = DatasService.dateToInput(new Date());
-  }
+export class EfetividadeComponent implements OnInit {
+
   private modalService = inject(NgbModal);
 
   lista!: Registro[];
@@ -46,18 +38,34 @@ export class EfetividadeGeralComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.valueDia = DatasService.dateToInput(new Date());
-    this.buscar()
+    this.buscar();
+  }
+
+  openModal(reg: Registro) {
+    const modal = this.modalService.open(RegistroDialogoComponent);
+    modal.componentInstance.registroId = reg.id;
+    modal.componentInstance.atualizar.subscribe(($e: any) => {
+      this.buscar();
+    });
+  }
+  registro() {
+    const modal = this.modalService.open(RegistroDialogoComponent);
+    modal.componentInstance.valueDia = DatasService.dateToInput(new Date());
   }
 
   buscar() {
     if (this.valueDia != '') {
-      let data = this.valueDia.split('-');
+      if(new Date(this.valueDia) instanceof Date){
+              let data = this.valueDia.split('-');
       this.registroService.getByDia(+data[2], +data[1], +data[0]).subscribe({
         next: (data) => {
-          console.log(data);
           this.lista = data;
         },
       });
+      }else{
+        console.log("não é data;");
+      }
+
     }
   }
   open() {

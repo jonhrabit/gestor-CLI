@@ -1,7 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">
-    Efetividade do dia - {{ valueDia | date : "dd/MM/yyyy" }}
-  </h4>
+  <h4 class="modal-title" id="modal-basic-title">Gerar por grupo</h4>
   <button
     type="button"
     class="btn-close"
@@ -11,13 +9,11 @@
 </div>
 <div class="modal-body">
   <div class="row">
-    <div class="col-md-6">
-      <form [formGroup]="formGrupos" (ngSubmit)="send()">
-        <h6>Grupos</h6>
-        <div
-          class="form-check"
-          *ngFor="let grupo of this.grupos; let i = index"
-        >
+    <form [formGroup]="formGrupos" (ngSubmit)="send()">
+      <h6>Grupos</h6>
+      <div class="row">
+        @for (grupo of this.grupos; track $index) {
+        <div class="form-check">
           <input
             class="form-check-input"
             type="checkbox"
@@ -26,16 +22,16 @@
           <label class="form-check-label" for="flexCheckDefault">
             <button
               type="button"
-              (click)="listaVigilantes(this.grupos[i], 10)"
+              (click)="listaVigilantes(this.grupos[$index], 10)"
               class="btn btn-light"
             >
               {{ grupo }}
             </button>
           </label>
         </div>
-      </form>
-    </div>
-    <div class="col-md-6"></div>
+        }
+      </div>
+    </form>
   </div>
 </div>
 <div class="modal-footer">

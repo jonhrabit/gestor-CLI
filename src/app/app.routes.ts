@@ -8,7 +8,7 @@ import { UsuarioDetalheComponent } from './auth/usuario-detalhe/usuario-detalhe.
 import { VigilanteListaComponent } from './vigilancia/vigilante-lista/vigilante-lista.component';
 import { PostoListaComponent } from './vigilancia/posto/posto-lista/posto-lista.component';
 import { VigilanteDetalheComponent } from './vigilancia/vigilante-detalhe/vigilante-detalhe.component';
-import { EfetividadeGeralComponent } from './vigilancia/efetividade-geral/efetividade-geral.component';
+import { EfetividadeComponent } from './vigilancia/efetividade/efetividade.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -52,7 +52,7 @@ export const routes: Routes = [
   },
   {
     path: 'efetividade',
-    component: EfetividadeGeralComponent,
+    component: EfetividadeComponent,
     canActivate: [authGuard],
   },
 ];

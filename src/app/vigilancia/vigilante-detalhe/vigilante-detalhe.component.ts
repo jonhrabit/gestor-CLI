@@ -13,6 +13,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { DatasService } from '../../util/datas.service';
 import { VigilanteDetalhes } from '../models/vigilantedetalhes';
@@ -62,9 +63,9 @@ export class VigilanteDetalheComponent implements OnInit {
       cadastro: [null],
       admissao: [null],
       desligamento: [null],
-      nome: [''],
+      nome: ['', Validators.required],
       matricula: [''],
-      cpf: [''],
+      cpf: ['', Validators.required],
       celular: [''],
       observacao: [''],
       foto: [''],
@@ -96,18 +97,22 @@ export class VigilanteDetalheComponent implements OnInit {
     }
   }
   send() {
-    let vig = this.vigilanteForm.value;
-    vig.cadastro = null;
-    vig.cpf = CpfService.removeMask(vig.cpf);
-    if (this.vigilanteForm.get('id') != null) {
-      this.vigilanteService.salvar(vig, vig.id).subscribe({
-        error: (erro) => {
-          this.toastService.showDanger('Erro durante o salvamento');
-        },
-        complete: () => {
-          this.toastService.showSuccess('Vigilante salvo com sucesso.');
-        },
-      });
+    if (this.vigilanteForm.valid) {
+      let vig = this.vigilanteForm.value;
+      vig.cadastro = null;
+      vig.cpf = CpfService.removeMask(vig.cpf);
+      if (this.vigilanteForm.get('id') != null) {
+        this.vigilanteService.salvar(vig, vig.id).subscribe({
+          error: (erro) => {
+            this.toastService.showDanger('Erro durante o salvamento');
+          },
+          complete: () => {
+            this.toastService.showSuccess('Vigilante salvo com sucesso.');
+          },
+        });
+      }
+    }else{
+      this.toastService.showDanger("Informe os campos obrigatórios.")
     }
   }
   gerarPosto() {

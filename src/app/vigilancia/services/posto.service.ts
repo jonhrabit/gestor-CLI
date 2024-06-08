@@ -22,7 +22,7 @@ export class PostoService {
 
   getAtivos() {
     return this.getAll().pipe(
-      map((postos) => postos.filter((postos) => postos.ativo))
+      map((postos) => postos.filter((posto) => posto.ativo))
     );
   }
   getByGrupo(grupo: string) {
@@ -36,7 +36,8 @@ export class PostoService {
       map((postos) => {
         let grupos: string[] = [];
         postos.forEach((posto) => {
-          if (grupos.indexOf(posto.grupo) == -1) {
+
+          if (grupos.indexOf(posto.grupo) == -1 && posto.grupo!=null) {
             grupos.push(posto.grupo);
           }
         });

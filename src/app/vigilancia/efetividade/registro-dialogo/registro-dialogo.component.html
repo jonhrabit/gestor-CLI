@@ -4,10 +4,10 @@
     type="button"
     class="btn-close"
     aria-label="Close"
-    (click)="activeModaRegistro.dismiss()"
+    (click)="registroActiveModal.dismiss()"
   ></button>
 </div>
-<form [formGroup]="formPosto" (submit)="salvar()">
+<form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
   <div class="modal-body">
     <div class="container">
       <div class="row">
@@ -20,7 +20,18 @@
               placeholder="data"
               formControlName="data"
             />
-            <label for="data">Data</label>
+            <label for="data">Data*</label>
+            <div
+              class="alert alert-warning"
+              style="font-size: 14px; padding: 0"
+              *ngIf="
+                registroForm.get('data')?.invalid &&
+                (registroForm.get('data')?.dirty ||
+                  registroForm.get('data')?.touched)
+              "
+            >
+              Informe a data para registro.
+            </div>
           </div>
         </div>
         <div class="col-md-6"></div>
@@ -28,9 +39,7 @@
       <div class="row">
         <ng-template #rt let-r="result" let-t="term">
           <ngb-highlight [result]="r.vigilanteNome" [term]="t"></ngb-highlight>
-          <p class="fw-lighter" style="font-size: 12px">
-            {{ r.escala }} - {{ r.grupo }}
-          </p>
+          <p style="font-size: 12px">{{ r.escala }} - {{ r.grupo }}</p>
         </ng-template>
 
         <div class="form-floating mb-3">
@@ -38,29 +47,52 @@
             type="text"
             class="form-control"
             id="posto"
-            placeholder="Vigilante"
-            [ngbTypeahead]="search"
+            placeholder="Vigilante*"
+            [ngbTypeahead]="vigilante"
             [resultTemplate]="rt"
             formControlName="posto"
-            [inputFormatter]="vigilanteNome"
+            [inputFormatter]="formatter"
+            [editable]="false"
           />
-          <label for="vigilante">Vigilante</label>
+          <label for="vigilante">Vigilante*</label>
+          <div
+            class="alert alert-warning"
+            style="font-size: 14px; padding: 0"
+            *ngIf="
+              registroForm.get('posto')?.invalid &&
+              registroForm.get('posto')?.touched
+            "
+          >
+            Informe o posto/vigilante valido para registro.
+          </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <div class="form-floating mb-3">
-            <input
-              type="text"
-              class="form-control"
+            <select
               id="status"
-              placeholder="status"
+              placeholder="Status*"
+              class="form-select"
               formControlName="status"
-            />
-            <label for="status">Status</label>
+            >
+              <option value=""></option>
+              <option value="{{s.nome}}" *ngFor="let s of statusLista">{{s.nome}} - {{s.descricao}}</option>
+            </select>
+            <label for="status">Status*</label>
+            <div
+              class="alert alert-warning"
+              style="font-size: 14px; padding: 0"
+              *ngIf="
+                registroForm.get('status')?.invalid &&
+                registroForm.get('status')?.touched
+              "
+            >
+              Informe o status para registro.
+            </div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="form-floating mb-3">
             <input
               type="text"
@@ -81,9 +113,9 @@
             id="substituto"
             placeholder="substituto"
             [ngbTypeahead]="substituto"
+            formControlName="substituto"
             [resultTemplate]="rt"
-            [editable]="false"
-            [inputFormatter]="vigilanteNome"
+            [inputFormatter]="formatter"
           />
           <label for="substituto">Substituto</label>
         </div>
@@ -106,7 +138,7 @@
       <button
         type="button"
         class="btn btn-outline-dark"
-        (click)="activeModaRegistro.close()"
+        (click)="registroActiveModal.close()"
       >
         Cancelar
       </button>

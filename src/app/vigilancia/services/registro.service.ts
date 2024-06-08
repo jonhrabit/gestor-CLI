@@ -54,4 +54,61 @@ export class RegistroService {
       map((reg) => reg.filter((r) => r.vigilante == nomeVigilante))
     );
   }
+
+  getListaStatus() {
+    return [
+      {
+        nome: 'A',
+        descricao: 'Posto ativo',
+        texto: 'Posto corretamente coberto',
+      },
+      {
+        nome: 'ATRASO',
+        descricao: 'Descumprimento de Horário',
+        texto:
+          'Escrever o horário descumprido no formato 00:00 adaptado para Atraso}',
+      },
+      {
+        nome: 'DIS',
+        descricao: 'Dispensa no recesso',
+        texto: 'Posto dispensado pelo gestor no recesso',
+      },
+      {
+        nome: 'FM',
+        descricao: 'Feriado municipal',
+        texto: 'Informar data de feriado municipal',
+      },
+      {
+        nome: 'FNS',
+        descricao: 'Falta Não Substituída',
+        texto: 'Faltas em geral com ou sem justificativa',
+      },
+      {
+        nome: 'FCS',
+        descricao: 'Falta com Substituição',
+        texto: 'Faltas em que empresa disponibilizou substituto',
+      },
+      {
+        nome: 'PD',
+        descricao: 'Posto descoberto',
+        texto: 'Férias, rescisão, licença maternidade - sem reposição',
+      },
+      {
+        nome: 'RE',
+        descricao: 'Rescisão com Reposição',
+        texto: 'Rescisão com contratação de outro funcionário',
+      },
+      {
+        nome: 'SAÍDA',
+        descricao: 'Saída do posto antes do horário e sem cobertura.',
+        texto: 'Escrever o horário descumprido no formato 00:00',
+      },
+      {
+        nome: 'CR',
+        descricao: 'Curso de reciclagem',
+        texto: 'Titular em curso de reciclagem de vigilante com substituição',
+      },
+      { nome: 'FE', descricao: 'Férias', texto: 'Férias com substitução' },
+    ];
+  }
 }

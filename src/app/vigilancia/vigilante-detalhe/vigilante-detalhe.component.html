@@ -36,10 +36,21 @@
                     type="text"
                     class="form-control"
                     id="cpf"
-                    placeholder="cpf"
+                    placeholder="CPF*"
                     formControlName="cpf"
                   />
-                  <label for="cpf">CPF</label>
+                  <label for="cpf">CPF*</label>
+                  <div
+                    class="alert alert-warning"
+                    style="font-size: 14px; padding: 0"
+                    *ngIf="
+                      vigilanteForm.get('cpf')?.invalid &&
+                      (vigilanteForm.get('cpf')?.dirty ||
+                        vigilanteForm.get('cpf')?.touched)
+                    "
+                  >
+                    Informe o CPF do vigilante.
+                  </div>
                 </div>
               </div>
             </div>
@@ -50,10 +61,21 @@
                     type="text"
                     class="form-control"
                     id="nome"
-                    placeholder="Nome"
+                    placeholder="Nome*"
                     formControlName="nome"
                   />
-                  <label for="nome">Nome</label>
+                  <label for="nome">Nome*</label>
+                  <div
+                    class="alert alert-warning"
+                    style="font-size: 14px; padding: 0"
+                    *ngIf="
+                      vigilanteForm.get('nome')?.invalid &&
+                      (vigilanteForm.get('nome')?.dirty ||
+                        vigilanteForm.get('nome')?.touched)
+                    "
+                  >
+                    Informe nome do vigilante.
+                  </div>
                 </div>
               </div>
             </div>
