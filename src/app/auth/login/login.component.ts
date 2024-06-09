@@ -5,40 +5,35 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { apiURL } from '../../app.config';
 import { FormControl } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ToastService } from '../../util/toast/toast.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   usuario: FormControl = new FormControl(['']);
   senha: FormControl = new FormControl(['']);
-  msg: string;
 
   constructor(
     private httpCliente: HttpClient,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private authService: AuthService
-  ) {
-    this.activatedRoute.snapshot.paramMap.get('msg');
-    this.msg = '';
-  }
+    private authService: AuthService,
+    private toastService: ToastService
+  ) {}
   ngOnInit(): void {
-    this.msg = '';
     if (this.router.url === '/login/logout') {
-      console.log('Logout efetuado com sucesso.');
+      this.toastService.showSuccess("Logout realizado com sucesso.");
     }
   }
   send() {
     let body = new URLSearchParams();
     body.set('username', this.usuario.value);
     body.set('password', this.senha.value);
-
-    console.log(body.toString());
 
     this.httpCliente
       .post(`${apiURL}/login`, body.toString(), {
@@ -53,8 +48,9 @@ export class LoginComponent {
           this.router.navigate(['/home']);
         },
         error: (error) => {
-          console.log('Usuário ou senha incorretos.');
+          this.toastService.showDanger('Usuário ou senha incorretos.');
         },
+        complete: () => {},
       });
   }
 }

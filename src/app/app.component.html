@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="!authService.isAutenticado()"></app-navbar>
 
 <router-outlet />
 <app-toasts aria-live="polite" aria-atomic="true"></app-toasts> <!-- toast para feed UI global -->

@@ -22,14 +22,13 @@ interface Coluna {
   standalone: true,
   imports: [CommonModule, NgbPaginationModule, FormsModule],
   templateUrl: './table.component.html',
-  styleUrl: './table.component.scss',
 })
 export class TableComponent implements OnChanges {
   @Input() columns: Coluna[] = [];
   @Input() data: any[] = [];
   pageSize = 10;
   currentPage = 1;
-  loading=false;
+  loading = false;
 
   sortColumn: string | null = null;
   sortDirection: 'asc' | 'desc' | '' = '';
@@ -47,7 +46,7 @@ export class TableComponent implements OnChanges {
   }
 
   onSearchChange(searchVal: string) {
-    this.loading=true;
+    this.loading = true;
     this.filteredData = this.data.filter((searchData: any) => {
       let flag = false;
       this.columns.forEach((coluna) => {
