@@ -37,11 +37,11 @@
             aria-labelledby="navbarDropdown1"
             class="dropdown-menu"
           >
-            <a ngbDropdownItem routerLink="vigilantes">Vigilantes</a>
-            <a ngbDropdownItem routerLink="postos">Postos</a>
+            <a ngbDropdownItem routerLink="vigilancia/vigilantes">Vigilantes</a>
+            <a ngbDropdownItem routerLink="vigilancia/postos">Postos</a>
             <hr class="hr" />
-            <a ngbDropdownItem routerLink="efetividade">Efetividade</a>
-            <a ngbDropdownItem routerLink="planilha">Planilha</a>
+            <a ngbDropdownItem routerLink="vigilancia/efetividade">Efetividade</a>
+            <a ngbDropdownItem routerLink="vigilancia/planilha">Planilha</a>
           </div>
         </li>
 
@@ -53,22 +53,16 @@
             id="navbarDropdown2"
             role="button"
           >
-            Static right
+            Claviculário
           </a>
           <div
             ngbDropdownMenu
             aria-labelledby="navbarDropdown2"
             class="dropdown-menu dropdown-menu-end"
           >
-            <a ngbDropdownItem href="#" (click)="$event.preventDefault()"
-              >Action</a
-            >
-            <a ngbDropdownItem href="#" (click)="$event.preventDefault()"
-              >Another action</a
-            >
-            <a ngbDropdownItem href="#" (click)="$event.preventDefault()"
-              >Something else here</a
-            >
+            <a ngbDropdownItem routerLink="claviculario">Empréstimos</a>
+            <a ngbDropdownItem routerLink="claviculario/pessoas">Pessoas</a>
+            <a ngbDropdownItem routerLink="claviculario/chaves">Chaves</a>
           </div>
         </li>
 

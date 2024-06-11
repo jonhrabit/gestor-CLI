@@ -18,7 +18,7 @@ export class VigilanteListaComponent {
     });
   }
   editVigilante($event: Vigilante) {
-    this.router.navigate(['vigilante/'+$event.id]);
+    this.router.navigate(['vigilancia/vigilante/'+$event.id]);
   }
   lista: any;
 }

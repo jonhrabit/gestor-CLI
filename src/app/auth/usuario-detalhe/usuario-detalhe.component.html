@@ -1,1 +1,30 @@
-<p>usuario-detalhe works!</p>
+<div class="row">
+  <div class="col-md-6">
+    <form>
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          placeholder="Usuário*"
+          formControlName="username"
+        />
+        <label for="username">Usuário*</label>
+        <div
+          class="alert alert-warning"
+          style="font-size: 14px; padding: 0"
+          *ngIf="
+            form.get('username')?.invalid &&
+            (form.get('username')?.dirty || form.get('username')?.touched)
+          "
+        >
+          Usuário é obrigatório.
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-6"></div>
+</div>
+
+id: number; cadastro: Date; nome: string; username: string; password: string;
+setor: string; email: string; cpf: string; permissoes: string[];

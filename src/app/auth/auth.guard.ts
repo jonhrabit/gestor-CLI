@@ -11,15 +11,17 @@ export const authGuard: CanActivateFn = (route, state) => {
     }
   }
 
-  switch (state.url) {
+  let path = state.url.split('/');
+
+  switch (path[1]) {
     case '':
       return true;
-    case '/vigilantes':
+    case 'vigilantes':
       return authService.isAutorizado('VIGILANCIA');
-    case '/usuarios':
+    case 'usuarios':
       return authService.isAutorizado('ADMIN');
-    /* case '/alterarsenha':
-      return authService.isAutenticado(); */
+    case 'claviculario':
+      return authService.isAutorizado('CLAVICULARIO');
     default:
       return true;
   }

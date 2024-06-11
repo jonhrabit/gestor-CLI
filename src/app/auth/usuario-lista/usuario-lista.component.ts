@@ -16,4 +16,7 @@ export class UsuarioListaComponent {
       this.lista = data;
     });
   }
+  editar($event: any) {
+    throw new Error('Method not implemented.');
+  }
 }

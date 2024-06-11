@@ -6,9 +6,13 @@
     <app-table
       [columns]="[
         { name: 'Usuário', key: 'username', type: 'string', pipe: '' },
-        { name: 'Nome', key: 'nome', type: 'string', pipe: '' }
+        { name: 'Nome', key: 'nome', type: 'string', pipe: '' },
+        { name: 'Setor', key: 'setor', type: 'string', pipe: '' },
+        { name: 'Email', key: 'email', type: 'string', pipe: '' },
+        { name: 'Ação', key: '', type: 'action', pipe: '' }
       ]"
       [data]="lista"
+      (onEdit)="editar($event)"
     ></app-table>
   </div>
 </div>
