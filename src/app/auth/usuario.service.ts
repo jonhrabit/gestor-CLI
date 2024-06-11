@@ -60,4 +60,15 @@ export class UsuarioService {
       headers: headers,
     });
   }
+
+  alterarsenha(alterarSenha: any) {
+    const headers = this.authService.getHeaders();
+    return this.httpClient.post<string>(
+      apiURL + '/usuario/alterarsenha',
+      alterarSenha,
+      {
+        headers: headers,
+      }
+    );
+  }
 }

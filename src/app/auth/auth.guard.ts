@@ -15,11 +15,11 @@ export const authGuard: CanActivateFn = (route, state) => {
     case '':
       return true;
     case '/vigilantes':
-      return inject(AuthService).isAutorizado('VIGILANCIA');
+      return authService.isAutorizado('VIGILANCIA');
     case '/usuarios':
-      return inject(AuthService).isAutorizado('ADMIN');
-    case '/alterarsenha':
-      return inject(AuthService).isAutenticado();
+      return authService.isAutorizado('ADMIN');
+    /* case '/alterarsenha':
+      return authService.isAutenticado(); */
     default:
       return true;
   }

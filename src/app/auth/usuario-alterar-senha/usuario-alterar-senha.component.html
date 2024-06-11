@@ -1,1 +1,54 @@
-<p>usuario-alterar-senha works!</p>
+<div class="corpo">
+  <div class="caixa shadow rounded">
+    <div class="row">
+      <h3>
+        {{ usuario.username }}
+      </h3>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div>Nome: {{ usuario.nome }}</div>
+        <div>CPF: {{ usuario.cpf }}</div>
+        <div>Setor: {{ usuario.setor }}</div>
+        <div>Email: {{ usuario.email }}</div>
+      </div>
+      <div class="col-md-6">
+        <form [formGroup]="form" (ngSubmit)="send()">
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="senha"
+              placeholder="Senha"
+              formControlName="senha"
+            />
+            <label for="senha">Senha</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="novasenha"
+              placeholder="Senha Nova"
+              formControlName="novasenha"
+            />
+            <label for="novasenha">Senha Nova</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="repetirsenha"
+              placeholder="Repetir senha"
+              formControlName="repetirsenha"
+            />
+            <label for="repetirsenha">Repetir senha</label>
+          </div>
+          <div>
+            <button class="btn btn-primary">Alterar senha</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

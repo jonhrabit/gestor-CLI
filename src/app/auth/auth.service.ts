@@ -5,9 +5,6 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  usuarioNome = new BehaviorSubject('');
-  getUsuarioNome = this.usuarioNome.asObservable();
-
   constructor() {
     this.setToken('');
   }
@@ -16,7 +13,6 @@ export class AuthService {
     let token = valor;
     if (valor != '') {
       let payload: any = JSON.parse(atob(token.split('.')[1]));
-      this.setUsuarioNome(payload.sub);
       sessionStorage.setItem('JSESSIONID', payload.sub);
       sessionStorage.setItem('usrd', payload.usrd);
       sessionStorage.setItem('acessToken', token);
@@ -39,10 +35,6 @@ export class AuthService {
     return false;
   }
 
-  setUsuarioNome(nome: string) {
-    this.usuarioNome.next(nome);
-  }
-
   isAutorizado(permissao: string): boolean {
     let token = this.getToken();
     if (token != null) {
@@ -60,7 +52,7 @@ export class AuthService {
   getHeaders() {
     return {
       authorization: 'Bearer ' + this.getToken(),
-/*       accept: "text/html,application/xhtml+xml,application",
+      /*       accept: "text/html,application/xhtml+xml,application",
       content: "application/json" */
     };
   }
