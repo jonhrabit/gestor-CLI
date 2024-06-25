@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Usuario } from './usuario';
 import { apiURL } from '../app.config';
+import { Permissao } from './permissao';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class UsuarioService {
       headers: this.authService.getHeaders(),
     });
   }
-  getPermissoesList() {
+  getPermissoesList():Permissao[] {
     /*     return this.httpClient.get<Usuario[]>(apiURL + '/usuario/permissaoList', {
       headers: this.authService.getHeaders(),
     }); */

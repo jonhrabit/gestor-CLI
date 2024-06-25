@@ -38,8 +38,6 @@ export class AuthService {
     let token = this.getToken();
     if (token != null) {
       let payload = JSON.parse(atob(token.split('.')[1]));
-      console.log(payload.scope);
-
       if (payload.scope.indexOf(permissao) != -1) {
         return true;
       }
