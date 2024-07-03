@@ -11,7 +11,6 @@ import { Usuario } from '../usuario';
 import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from '../usuario.service';
 import { DatasService } from '../../util/datas.service';
-import { Permissao } from '../permissao';
 
 @Component({
   selector: 'app-usuario-detalhe',
@@ -21,7 +20,8 @@ import { Permissao } from '../permissao';
   styleUrl: './usuario-detalhe.component.scss',
 })
 export class UsuarioDetalheComponent implements OnInit {
-  listaPermissoes!: Permissao[];
+  listaPermissoes!: any;
+  keysPermissoes!: string[];
   form: FormGroup = this.formBuilder.group({
     id: [''],
     cadastro: [''],
@@ -41,8 +41,21 @@ export class UsuarioDetalheComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.listaPermissoes = this.usuarioService.getPermissoesList();
-    this.popularForm();
+    this.usuarioService.getPermissoes().subscribe({
+      next: (data) => {
+        this.listaPermissoes = data;
+      },
+      error: (erro) => {
+        this.toastService.showDanger(erro.error);
+      },
+      complete: () => {
+        this.keysPermissoes = Object.keys(this.listaPermissoes);
+        Object.keys(this.listaPermissoes).forEach((permissao) => {
+          this.form.addControl(permissao, new FormControl(false));
+        });
+        this.popularForm();
+      },
+    });
   }
 
   popularForm() {
@@ -55,26 +68,58 @@ export class UsuarioDetalheComponent implements OnInit {
           console.log(usuario);
         },
         error: (erro) => {
-          console.error(erro);
-          this.toastService.showDanger(erro);
+          this.toastService.showDanger(erro.error);
         },
         complete: () => {
-          this.form.patchValue(usuario);
-          this.listaPermissoes.forEach((permissao) => {
-            const valor = usuario.permissoes.indexOf(permissao.nome);
-            this.form.addControl(
-              permissao.nome,
-              new FormControl(valor < 0 ? false : true)
-            );
-          });
           this.form.patchValue({
             cadastro: DatasService.dateToBr(usuario.cadastro),
+          });
+          this.form.patchValue(usuario);
+          usuario.permissoes?.forEach((perm) => {
+            this.form.get(perm)?.setValue(true);
           });
         },
       });
     }
   }
+
   send() {
-    console.log(this.form.value);
+    let usuario = this.form.value;
+    let permissoes: string[] = [];
+    this.keysPermissoes.forEach((key) => {
+      if (usuario[key]) {
+        permissoes.push(key);
+      }
+      delete usuario[key];
+    });
+    usuario.permissoes = permissoes;
+    if (usuario.id == 0) {
+      console.log('criar');
+      this.usuarioService.criar(usuario).subscribe({
+        next: (data) => {},
+        error: (erro) => {
+          console.error(erro);
+          this.toastService.showDanger(erro.error);
+        },
+        complete: () => {
+          this.toastService.showSuccess(
+            'Usuário ' + usuario.username + ' criado com sucesso.'
+          );
+        },
+      });
+    } else {
+      this.usuarioService.salvar(usuario.id, usuario).subscribe({
+        next: (data) => {},
+        error: (erro) => {
+          console.error(erro);
+          this.toastService.showDanger(erro.error);
+        },
+        complete: () => {
+          this.toastService.showSuccess(
+            'Usuário ' + usuario.username + ' salvo com sucesso.'
+          );
+        },
+      });
+    }
   }
 }

@@ -11,6 +11,7 @@ import { Registro } from '../models/registro';
 import { Posto } from '../models/posto';
 import { DatasService } from '../../util/datas.service';
 import { RegistroDialogoComponent } from './registro-dialogo/registro-dialogo.component';
+import { DialogoComponent } from '../../shared/dialogo/dialogo.component';
 
 @Component({
   selector: 'app-efetividade-geral',
@@ -26,7 +27,6 @@ import { RegistroDialogoComponent } from './registro-dialogo/registro-dialogo.co
   styleUrl: './efetividade.component.scss',
 })
 export class EfetividadeComponent implements OnInit {
-
   private modalService = inject(NgbModal);
 
   lista!: Registro[];
@@ -55,17 +55,16 @@ export class EfetividadeComponent implements OnInit {
 
   buscar() {
     if (this.valueDia != '') {
-      if(new Date(this.valueDia) instanceof Date){
-              let data = this.valueDia.split('-');
-      this.registroService.getByDia(+data[2], +data[1], +data[0]).subscribe({
-        next: (data) => {
-          this.lista = data;
-        },
-      });
-      }else{
-        console.log("não é data;");
+      if (new Date(this.valueDia) instanceof Date) {
+        let data = this.valueDia.split('-');
+        this.registroService.getByDia(+data[2], +data[1], +data[0]).subscribe({
+          next: (data) => {
+            this.lista = data;
+          },
+        });
+      } else {
+        console.log('não é data;');
       }
-
     }
   }
   open() {
@@ -97,5 +96,19 @@ export class EfetividadeComponent implements OnInit {
         'Informe a data para cadastro antes de relacionar os grupos.'
       );
     }
+  }
+  deletar($event: any) {
+    const modal = this.modalService.open(DialogoComponent);
+    modal.componentInstance.titulo = 'Excluir';
+    modal.componentInstance.texto =
+      '<p>Tem certeza da exclusão do registro </p><p><b>' +
+      $event.data +
+      ' ' +
+      $event.vigilante + ' ' +
+      $event.status +
+      '</b>?</p>';
+    modal.componentInstance.ok.subscribe((value: boolean) => {
+      console.log('ok');
+    });
   }
 }

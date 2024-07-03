@@ -26,6 +26,7 @@ interface Coluna {
 export class TableComponent implements OnChanges {
   @Input() columns: Coluna[] = [];
   @Input() data: any[] = [];
+  @Input() btnreset?: boolean;
   pageSize = 10;
   currentPage = 1;
   loading = false;
@@ -38,6 +39,7 @@ export class TableComponent implements OnChanges {
 
   @Output() onEdit = new EventEmitter<any>();
   @Output() onDelete = new EventEmitter<any>();
+  @Output() onReset = new EventEmitter<any>();
 
   constructor() {}
 
@@ -80,6 +82,9 @@ export class TableComponent implements OnChanges {
   }
   deleteRecord(item: any) {
     this.onDelete.emit(item);
+  }
+  reset(item: any) {
+    this.onReset.emit(item);
   }
 
   private acessar(obj: any, prop: string) {

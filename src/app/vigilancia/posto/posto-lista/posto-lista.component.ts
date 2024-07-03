@@ -4,6 +4,7 @@ import { PostoService } from '../../services/posto.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PostoDialogoComponent } from '../posto-dialogo/posto-dialogo.component';
 import { Posto } from '../../models/posto';
+import { DialogoComponent } from '../../../shared/dialogo/dialogo.component';
 
 @Component({
   selector: 'app-posto-lista',
@@ -31,5 +32,20 @@ export class PostoListaComponent {
   editPosto(posto: Posto) {
     const modal = this.modalService.open(PostoDialogoComponent);
     modal.componentInstance.postoId = posto.id;
+  }
+  delPosto($event: any) {
+    const modal = this.modalService.open(DialogoComponent);
+    modal.componentInstance.titulo = 'Excluir';
+    modal.componentInstance.texto =
+      '<p>Tem certeza da exclusão do posto <b>' +
+      $event.vigilanteNome +
+      ' ' +
+      $event.titularidade +
+      ' ' +
+      $event.escala +
+      '</b>?</p>';
+    modal.componentInstance.ok.subscribe((value: boolean) => {
+      console.log($event.vigilanteNome)
+    });
   }
 }

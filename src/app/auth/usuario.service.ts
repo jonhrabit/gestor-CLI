@@ -19,32 +19,19 @@ export class UsuarioService {
       headers: this.authService.getHeaders(),
     });
   }
-  getPermissoesList():Permissao[] {
-    /*     return this.httpClient.get<Usuario[]>(apiURL + '/usuario/permissaoList', {
+
+  getPermissoes() {
+    return this.httpClient.get<any>(apiURL + '/usuario/permissoes', {
       headers: this.authService.getHeaders(),
-    }); */
-    return [
-      { nome: 'ADMIN', texto: 'Controle de usuários.' },
-      { nome: 'VIGILANCIA', texto: 'Efetividade da vigilância.' },
-      {
-        nome: 'VIGDELETE',
-        texto: 'Deletar registros da efetividade da vigilância.',
-      },
-      {
-        nome: 'REST',
-        texto: 'Habilita os comandos REST para diversos resources.',
-      },
-      { nome: 'AGENTES', texto: 'Agentes' },
-      { nome: 'CLAVICULARIO', texto: 'Claviculário' },
-      {
-        nome: 'CLAVICULARIODELETE',
-        texto: 'Deletar registros no claviculário',
-      },
-      { nome: 'GUARITA', texto: 'Guarita' },
-    ];
+    });
   }
   get(id: number) {
     return this.httpClient.get<Usuario>(apiURL + '/usuario/' + id, {
+      headers: this.authService.getHeaders(),
+    });
+  }
+  resetSenha(id: number) {
+    return this.httpClient.get<string>(apiURL + '/usuario/reset/' + id, {
       headers: this.authService.getHeaders(),
     });
   }
@@ -58,6 +45,13 @@ export class UsuarioService {
   criar(usuario: Usuario) {
     const headers = this.authService.getHeaders();
     return this.httpClient.post<Usuario>(apiURL + '/usuario', usuario, {
+      headers: headers,
+    });
+  }
+
+  deletar(usuario: Usuario) {
+    const headers = this.authService.getHeaders();
+    return this.httpClient.delete<boolean>(apiURL + '/usuario/' + usuario.id, {
       headers: headers,
     });
   }

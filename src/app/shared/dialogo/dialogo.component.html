@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{titulo}}</h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="dialogoModal.dismiss()"
+  ></button>
+</div>
+<div class="modal-body" [innerHTML]="texto"></div>
+<div class="modal-footer">
+  <button class="btn btn-outline-primary" (click)="yes()">Sim</button>
+  <button
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="dialogoModal.close()"
+  >
+    Não
+  </button>
+</div>

@@ -116,18 +116,20 @@
         </div>
       </div>
       <div class="col-md-6">
-        @for (item of listaPermissoes; track $index) {
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            [formControlName]="item.nome"
-          />
-          <label class="form-check-label" for="flexCheckDefault">
-            {{ item.nome }} - {{ item.texto }}
-          </label>
+        <div class="mt-3">
+          @for (item of keysPermissoes; track $index) {
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [formControlName]="item"
+            />
+            <label class="form-check-label" for="flexCheckDefault">
+              {{ listaPermissoes[item] }}
+            </label>
+          </div>
+          }
         </div>
-        }
       </div>
     </div>
   </form>

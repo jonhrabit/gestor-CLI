@@ -1,6 +1,10 @@
 <div class="container">
   <div class="row mt-3">
-    <h1>Usuários</h1>
+    <div class="col"><h1>Usuários</h1></div>
+    <div class="col">
+      <button class="btn btn-outline-primary" (click)="novo()">Novo</button>
+
+    </div>
   </div>
   <div class="row">
     <app-table
@@ -12,7 +16,10 @@
         { name: 'Ação', key: '', type: 'action', pipe: '' }
       ]"
       [data]="lista"
+      [btnreset]="true"
       (onEdit)="editar($event)"
+      (onDelete)="deletar($event)"
+      (onReset)="resetar($event)"
     ></app-table>
   </div>
 </div>

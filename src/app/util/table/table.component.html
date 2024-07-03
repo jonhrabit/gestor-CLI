@@ -46,6 +46,9 @@
               <button class="btn btn-danger" (click)="deleteRecord(item)">
                 <i class="bi bi-trash-fill"></i>
               </button>
+              <button *ngIf="btnreset" class="btn btn-warning" (click)="reset(item)">
+                <i class="bi bi-key"></i>
+              </button>
             </div>
             <div *ngIf="column.type != 'action'">
               <div *ngIf="column.key.split('.').length > 1; else simples">
