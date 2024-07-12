@@ -6,10 +6,10 @@ export interface Posto {
   vigilanteNome: string;
   escala: string;
   titularidade: string;
-  local: string;
-  observacao: string;
+  local?: string;
+  observacao?: string;
   grupo: string;
-  inicio: string;
-  jornada: string;
+  inicio?: string;
+  jornada?: string;
   ativo: boolean;
 }

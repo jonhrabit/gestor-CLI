@@ -13,11 +13,18 @@ export class PostoService {
     private authService: AuthService,
     private httpClient: HttpClient
   ) {}
+
   getAll() {
     return this.httpClient.get<Posto[]>(apiURL + '/vigilancia/posto/all', {
       headers: this.authService.getHeaders(),
     })
     ;
+  }
+
+  getEscalas(){
+     return this.httpClient.get<Posto[]>(apiURL + '/vigilancia/registro/lista/escala', {
+       headers: this.authService.getHeaders(),
+     });
   }
 
   getAtivos() {
@@ -36,7 +43,6 @@ export class PostoService {
       map((postos) => {
         let grupos: string[] = [];
         postos.forEach((posto) => {
-
           if (grupos.indexOf(posto.grupo) == -1 && posto.grupo!=null) {
             grupos.push(posto.grupo);
           }

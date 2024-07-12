@@ -1,0 +1,71 @@
+<div class="container mt-3">
+  <p>Importação do arquivo planilha.xslx padrão</p>
+  <div class="border">
+    <form [formGroup]="uploadForm" (ngSubmit)="onProcessar()">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-floating mb-3">
+            <select
+              id="mes"
+              placeholder="Mês*"
+              class="form-select"
+              formControlName="mes"
+            >
+              <option value="0">Janeiro</option>
+              <option value="1">Fevereiro</option>
+              <option value="2">Março</option>
+              <option value="3">Abril</option>
+              <option value="4">Maio</option>
+              <option value="5">Junho</option>
+              <option value="6">Julho</option>
+              <option value="7">Agosto</option>
+              <option value="8">Setembro</option>
+              <option value="9">Outubro</option>
+              <option value="10">Novembro</option>
+              <option value="11">Dezembro</option>
+            </select>
+            <label for="mes">Mês*</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="ano"
+              placeholder="ano"
+              formControlName="ano"
+            />
+            <label for="ano">Ano</label>
+          </div>
+        </div>
+        <div class="col-md-6"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="file">Arquivo:</label>
+            <input
+              type="file"
+              class="form-control"
+              id="file"
+              (change)="onFileChange($event)"
+              formControlName="file"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-primary">
+            Processar Informações
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="mt-3">
+    <div class="alert alert-success" *ngIf="data.length > 0">
+      Obtido arquivo.
+    </div>
+  </div>
+
+</div>

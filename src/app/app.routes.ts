@@ -12,6 +12,8 @@ import { EfetividadeComponent } from './vigilancia/efetividade/efetividade.compo
 import { PessoasComponent } from './claviculario/pessoas/pessoas.component';
 import { EmprestimosComponent } from './claviculario/emprestimos/emprestimos.component';
 import { ChavesComponent } from './claviculario/chaves/chaves.component';
+import { PlanilhaComponent } from './vigilancia/planilha/planilha.component';
+import { ImportComponent } from './vigilancia/import/import.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -53,6 +55,8 @@ export const routes: Routes = [
       { path: 'vigilante/:id', component: VigilanteDetalheComponent },
       { path: 'postos', component: PostoListaComponent },
       { path: 'efetividade', component: EfetividadeComponent },
+      { path: 'planilha', component: PlanilhaComponent },
+      { path: 'planilha/import', component: ImportComponent },
     ],
   },
 ];
